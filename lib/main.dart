@@ -22,9 +22,18 @@ class HomePage extends StatefulWidget {
 
 class HomeState extends State<HomePage> {
   final perguntas = [
-    "1. Qual a sua cor favorita?",
-    "2. Qual o seu animal favorito?",
-    "3. Qual é o seu time?"
+    {
+    "pergunta" : "1. Qual a sua cor favorita?",
+    "resposta" : ["verde", "amarelo", "azul", "vermelho", "roxo"]
+    },
+    {
+    "pergunta" : "2. Qual o seu animal favorito?",
+    "resposta" : ["Garfield", "lasanha do Garfield", "humano do Garfield", "cachorro amigo do Garfield", "galo"]
+    },
+    {
+    "pergunta" : "3. Qual é o seu time?",
+    "resposta" : ["Josefense", "Flamengo do Piauí", "Capivariano", "Corinthians Alagoano", "SER Panambi"]
+    }
   ];
 
   var indicePergunta = 0;
@@ -43,7 +52,7 @@ class HomeState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Wendell", style: TextStyle(fontSize: 30)),
+        title: const Text("Wendell", style: TextStyle(fontSize: 25)),
         centerTitle: true,
         backgroundColor: Colors.indigo,
         toolbarHeight: 80,
@@ -54,12 +63,13 @@ class HomeState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              perguntas[indicePergunta],
+              perguntas[indicePergunta]["pergunta"].toString(),
               style: TextStyle(fontSize: 30)
             ),
-            Botoes(resp: responder),
-            Botoes(resp: responder),
-            Botoes(resp: responder)
+            SizedBox(height: 20,),
+            ...((perguntas[indicePergunta]['resposta'] as List<String>)
+            .map((textoBotao) => Botoes(resp: responder, txt: textoBotao))
+            .toList()),
           ],
          ),
        ),
