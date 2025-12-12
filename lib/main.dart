@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'botoes.dart';
+import './dados.dart';
+import './lista_perguntas.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,31 +22,26 @@ class HomePage extends StatefulWidget {
 }
 
 class HomeState extends State<HomePage> {
-  final perguntas = [
-    {
-    "pergunta" : "1. Qual a sua cor favorita?",
-    "resposta" : ["verde", "amarelo", "azul", "vermelho", "roxo"]
-    },
-    {
-    "pergunta" : "2. Qual o seu animal favorito?",
-    "resposta" : ["Garfield", "lasanha do Garfield", "humano do Garfield", "cachorro amigo do Garfield", "galo"]
-    },
-    {
-    "pergunta" : "3. Qual é o seu time?",
-    "resposta" : ["Josefense", "Flamengo do Piauí", "Capivariano", "Corinthians Alagoano", "SER Panambi"]
-    }
-  ];
-
+  final dados = perguntasRespostas;
+  List respostas = [];
   var indicePergunta = 0;
 
-  void responder() {
-    if (indicePergunta < perguntas.length - 1) {
-      indicePergunta++;
-    } else {
+  void responder(String r) {
+    String p = dados[indicePergunta].pergunta;
+    respostas.add({"pergunta" : p, "resposta" : r});
+    indicePergunta++;
+    setState(() {});
+  }
+
+  void reiniciar() {
+    setState(() {
       indicePergunta = 0;
-    } setState(() {
-      
+      respostas = [];
     });
+  }
+
+  bool get temPergunta {
+    return indicePergunta < dados.length;
   }
 
   @override
@@ -59,20 +55,14 @@ class HomeState extends State<HomePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              perguntas[indicePergunta]["pergunta"].toString(),
-              style: TextStyle(fontSize: 30)
-            ),
-            SizedBox(height: 20,),
-            ...((perguntas[indicePergunta]['resposta'] as List<String>)
-            .map((textoBotao) => Botoes(resp: responder, txt: textoBotao))
-            .toList()),
-          ],
-         ),
-       ),
+        child: temPergunta
+          ? ListaPerguntas(
+            indicePergunta: indicePergunta,
+            perguntas: dados,
+            responder: responder, 
+          )
+          : null //Resultado(respostas, reiniciar),
+      ),
     );
   }
 }
