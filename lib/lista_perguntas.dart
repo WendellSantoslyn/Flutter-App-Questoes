@@ -16,9 +16,17 @@ class ListaPerguntas extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final perguntaAtual = perguntas[indicePergunta];
 
     return Column(
-      children: [],
+      children: [
+        Text(perguntaAtual.pergunta,
+        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+        SizedBox(height: 20),
+        ...perguntaAtual.respostas.map(
+          (textoBotao) =>Botoes(resp: responder, txt: textoBotao)
+        ),
+      ],
     );
   }
 }
