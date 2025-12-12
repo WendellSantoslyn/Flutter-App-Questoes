@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:questoes/pergunta_respostas.dart';
 import './dados.dart';
 import './lista_perguntas.dart';
 import './resultado.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(fontFamily: GoogleFonts.montserrat().fontFamily),
       home: HomePage(),
     );
   }
@@ -65,6 +66,7 @@ class HomeState extends State<HomePage> {
         backgroundColor: Colors.indigo,
         toolbarHeight: 80,
       ),
+      backgroundColor: Colors.blueGrey,
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [temPergunta
