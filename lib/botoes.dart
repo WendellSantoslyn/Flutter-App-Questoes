@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
 class Botoes extends StatelessWidget {
-  const Botoes({required this.resp, required this.txt, super.key});
+  const Botoes({
+    required this.resp,
+    required this.txt,
+    required this.ponto,
+    super.key});
 
-  final void Function(String) resp;
+  final void Function(String, int) resp;
   final String txt;
+  final int ponto;
 
 @override
 Widget build(BuildContext context) {
@@ -13,7 +18,7 @@ Widget build(BuildContext context) {
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton(
-          onPressed: () => resp(txt),
+          onPressed: () => resp(txt, ponto),
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.red,
             foregroundColor: Colors.deepPurple,
